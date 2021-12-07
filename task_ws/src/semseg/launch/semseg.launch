@@ -1,0 +1,5 @@
+<launch>
+    <param name="image_dir" type="str" value="../data" />
+    <param name="file_pattern" type="str" value="*.jpg" />
+    <node name="semseg" pkg="semseg" type="semseg.py" output="screen"/>
+</launch>
