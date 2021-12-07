@@ -1,5 +1,13 @@
 <launch>
-    <param name="image_dir" type="str" value="../data" />
-    <param name="file_pattern" type="str" value="*.jpg" />
-    <node name="semseg" pkg="semseg" type="semseg.py" output="screen"/>
+
+    <arg name="imgdir"  default="$(find semseg)/data" />
+    <arg name="resultdir"  default="$(find semseg)/result" />
+
+    <node name="semseg" pkg="semseg" type="semseg.py" output="screen">
+        <param name="image_dir" type="str" value="$(arg imgdir)" />
+        <param name="result_dir" type="str" value="$(arg resultdir)" />
+        <param name="file_pattern" type="str" value="*.jpg" />
+
+    </node>
+    
 </launch>
