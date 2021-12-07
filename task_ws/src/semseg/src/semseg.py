@@ -20,7 +20,7 @@ def collect_image_files(image_dir,file_pattern):
   return images
 
 # Read image, publish it on ROS topic, do segmentation and publish the results on another ROS topic
-def playback_images(image_dir,file_pattern,publish_rate):
+def playback_images(image_dir,results_dir, file_pattern,publish_rate):
   image_files = collect_image_files(image_dir,file_pattern)
   rospy.loginfo('Found %i images.',len(image_files))
   bridge = cv_bridge.CvBridge()
@@ -50,7 +50,6 @@ def playback_images(image_dir,file_pattern,publish_rate):
     result.header.frame_id = "/result"
     result_publisher.publish(result)
     
-    
     rate.sleep()
   rospy.loginfo('No more images left. Stopping.')
 
@@ -59,12 +58,10 @@ if __name__ == "__main__":
   try:
     image_dir = rospy.get_param("/semseg/image_dir")
     results_dir = rospy.get_param("/semseg/result_dir")
-    print(image_dir)
     file_pattern = rospy.get_param("/semseg/file_pattern", "*.jpg")
-
     frequency = rospy.get_param("~frequency", 10)
 
-    playback_images(image_dir, file_pattern, frequency)
+    playback_images(image_dir, results_dir, file_pattern, frequency)
   except KeyError as e:
     rospy.logerr('Required parameter missing: %s', e)
   except Exception as e:

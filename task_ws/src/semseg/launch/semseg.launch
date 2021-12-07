@@ -1,7 +1,7 @@
 <launch>
 
     <arg name="imgdir"  default="$(find semseg)/data" />
-    <arg name="resultdir"  default="$(find semseg)/result" />
+    <arg name="resultdir"  default="$(find semseg)/results" />
 
     <node name="semseg" pkg="semseg" type="semseg.py" output="screen">
         <param name="image_dir" type="str" value="$(arg imgdir)" />
